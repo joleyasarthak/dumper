@@ -7,6 +7,13 @@ Single-vendor e-commerce sites are limited in scale and flexibility. To support 
 This platform enables multiple vendors to list products based on a centralised catalog, customers to place orders from multiple vendors in one checkout, and admins to manage platform-wide settings. It includes order tracking, product reviews, and payment simulations. Admins can approve catalog products, vendor offers, manage user roles, and analyse platform performance.
 
 ## Roles: Admin, Vendor, Customer
+The usernames and passwords for accessing Swagger UI are defined in the application's security configuration ([`SecurityConfig.java`](src/main/java/com/example/ecommerce/config/SecurityConfig.java:17)) using an in-memory user store. They are not related to a seeder.
+
+The available credentials are:
+
+*   Username: `customer`, Password: `password`
+*   Username: `vendor`, Password: `password`
+*   Username: `admin`, Password: `password`
 
 ## API Endpoints
 

@@ -22,7 +22,7 @@ public class VendorProduct {
     @JoinColumn(name = "vendorId", referencedColumnName = "vendorId")
     private VendorProfile vendor;
 
-    private String sku; // Unique per vendor
+    private String SKU; // Unique per vendor
 
     private BigDecimal price;
     private Integer stockQuantity;

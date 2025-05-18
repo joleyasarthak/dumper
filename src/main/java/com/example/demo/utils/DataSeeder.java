@@ -10,8 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
@@ -42,7 +40,6 @@ public class DataSeeder implements CommandLineRunner {
     private CartItemRepository cartItemRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     @Override
     public void run(String... args) throws Exception {
@@ -161,7 +158,7 @@ public class DataSeeder implements CommandLineRunner {
         VendorProduct vendorLaptop = new VendorProduct();
         vendorLaptop.setProductCatalog(laptopCatalog);
         vendorLaptop.setVendor(vendorProfile);
-        vendorLaptop.setSku("V-LAP-001");
+        vendorLaptop.setSKU("V-LAP-001");
         vendorLaptop.setPrice(new BigDecimal("1200.00"));
         vendorLaptop.setStockQuantity(10);
         // Assuming a default shipping address for the vendor or creating one
@@ -185,7 +182,7 @@ public class DataSeeder implements CommandLineRunner {
         VendorProduct vendorNovel = new VendorProduct();
         vendorNovel.setProductCatalog(novelCatalog);
         vendorNovel.setVendor(vendorProfile);
-        vendorNovel.setSku("V-NOV-001");
+        vendorNovel.setSKU("V-NOV-001");
         vendorNovel.setPrice(new BigDecimal("15.00"));
         vendorNovel.setStockQuantity(50);
         vendorNovel.setShippingAddress(vendorAddress); // Same shipping address as laptop
@@ -252,8 +249,10 @@ public class DataSeeder implements CommandLineRunner {
 
     private void seedOrders() {
         User customerUser = userRepository.findByEmail("customer@example.com").orElseThrow();
-        Address shippingAddress = addressRepository.findByUserEmailAndAddressType("customer@example.com", AddressType.SHIPPING).orElseThrow();
-        Address billingAddress = addressRepository.findByUserEmailAndAddressType("customer@example.com", AddressType.BILLING).orElseThrow();
+        Address shippingAddress = addressRepository
+                .findByUserEmailAndAddressType("customer@example.com", AddressType.SHIPPING).orElseThrow();
+        Address billingAddress = addressRepository
+                .findByUserEmailAndAddressType("customer@example.com", AddressType.BILLING).orElseThrow();
 
         Order order = new Order();
         order.setCustomer(customerUser);
@@ -268,7 +267,8 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedOrderItems() {
-        Order customerOrder = orderRepository.findTopByCustomerEmailOrderByOrderDateDesc("customer@example.com").orElseThrow();
+        Order customerOrder = orderRepository.findTopByCustomerEmailOrderByOrderDateDesc("customer@example.com")
+                .orElseThrow();
         VendorProduct vendorLaptop = vendorProductRepository.findBySKU("V-LAP-001").orElseThrow();
         VendorProduct vendorNovel = vendorProductRepository.findBySKU("V-NOV-001").orElseThrow();
 
@@ -292,7 +292,8 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedPayments() {
-        Order customerOrder = orderRepository.findTopByCustomerEmailOrderByOrderDateDesc("customer@example.com").orElseThrow();
+        Order customerOrder = orderRepository.findTopByCustomerEmailOrderByOrderDateDesc("customer@example.com")
+                .orElseThrow();
 
         Payment payment = new Payment();
         payment.setOrder(customerOrder);
@@ -307,8 +308,8 @@ public class DataSeeder implements CommandLineRunner {
     private void seedReviews() {
         User customerUser = userRepository.findByEmail("customer@example.com").orElseThrow();
         VendorProduct vendorLaptop = vendorProductRepository.findBySKU("V-LAP-001").orElseThrow();
-        Order customerOrder = orderRepository.findTopByCustomerEmailOrderByOrderDateDesc("customer@example.com").orElseThrow();
-
+        Order customerOrder = orderRepository.findTopByCustomerEmailOrderByOrderDateDesc("customer@example.com")
+                .orElseThrow();
 
         Review laptopReview = new Review();
         laptopReview.setVendorProduct(vendorLaptop);
